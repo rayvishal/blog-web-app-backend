@@ -66,7 +66,16 @@ app.delete("/api/deleteblog/:id", async (req, res) => {
     console.log(error);
   }
 });
-
+app.patch("/api/update/:id", async (req, res) => {
+  const id = req.params.id;
+  console.log(req.body);
+  try {
+    const updated = await Blog.findByIdAndUpdate(id, req.body);
+    res.json("Updated");
+  } catch (error) {
+    console.log(error);
+  }
+});
 // app.listen(5000, (req, res) => {
 //   console.log("Server is running on port 5000");
 // });
