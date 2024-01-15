@@ -21,6 +21,7 @@ const blogSchema = new mongoose.Schema({
   content: {
     type: String,
   },
+  comments: [String],
 });
 const Blog = mongoose.models.Blog || mongoose.model("Blog", blogSchema);
 export default Blog;

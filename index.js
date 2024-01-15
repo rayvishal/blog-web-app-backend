@@ -6,6 +6,7 @@ const app = express();
 import cors from "cors";
 app.use(cors());
 app.use(express.json());
+app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
 
 import dotenv from "dotenv";
@@ -75,6 +76,18 @@ app.patch("/api/update/:id", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+});
+app.post("/api/comment/:id", async (req, res) => {
+  const id = req.params.id;
+  const newData = req.body;
+  const addComment = await Blog.findByIdAndUpdate(
+    id,
+    {
+      $push: { comments: newData },
+    },
+    { new: true }
+  );
+  res.status(200).json(addComment);
 });
 // app.listen(5000, (req, res) => {
 //   console.log("Server is running on port 5000");
